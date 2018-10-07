@@ -12,6 +12,8 @@ This is portable and tested to work using ANY major release of python,
 ## Requirements:
     Will need to ensure boto3 libraries have been installed as part of your Python libraries
     To do so, run  "python -mpip install boto3" on your command line (should work on any OS)
+    OR, simply run
+    pip install -r requirements.txt
 
 ## Parameters: 
 
