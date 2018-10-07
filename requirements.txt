@@ -1,0 +1,5 @@
+# Boto3 is the Amazon Web Services (AWS) Software Development Kit (SDK)
+# for Python.
+# License: Apache2
+# Use: For KMS
+boto3
