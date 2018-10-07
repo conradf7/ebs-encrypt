@@ -3,10 +3,10 @@ Encrypt the EBS volumes of one or more (or all!) EC2 instances within a particul
 
 
         NOTE:
-        **This will encrypt all volumes for the EC2,  including the ROOT volume** :)
+        **This will encrypt all volumes for the EC2,  including the ROOT volume :)
 
-        **If an EC2 instance is in the running state, it will be STOPPED first, 
-        before its volumes are encrypted**
+        **If an EC2 instance is in the running state, it will be STOPPED first,
+        before its volumes are encrypted
 
 ## Python version:  
 This is portable and tested to work using ANY major release of python, 
