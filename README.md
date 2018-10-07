@@ -21,13 +21,14 @@ This is portable and tested to work using ANY major release of python,
                 Keep in mind KMS is REGION specific.  This is an anomaly of IAM 
 ### Optional: 
             -k:  the CMK (Master Key) under which the DEKs will be be used to encrypt the volume(s). 
-                You can specify the Alias of the Key or the actual Key ID.  Alias is always better, 
-                since it can always point to a newer master key in case the old CMK is toast or 
-                goes south for whatever reason, and gets replaced with a newer CMK key ID. 
+                You can specify the Alias of the Key or the actual Key ID.  Alias is better 
+                since it can point to a newer master key in case the old CMK is no longer valid or gets replaced with a newer CMK key ID. 
                 IF CMK is NOT Specified, then the default AWS EBS key will be used,
                 which in this case is alias/aws/ebs
             -i : EC2 instance-id's  to be encrypted 
                 (e.g. -i i-0f084d152c27f9a5f i-021d3a27a71da28be) 
                 for these 2 EC2 instance id's
+                NOTE:  If -i is not specified, then ALL EC2 instances in the region will be encrypted!  
+                That can take a long time depending on how many instances and how large the volumes are in the region!
 
 Use ec2crypto --help or -h   for usage            
