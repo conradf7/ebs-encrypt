@@ -3,14 +3,14 @@ Encrypt the EBS volumes of one or more (or all!) EC2 instances within a particul
 
 
         NOTE:
-        **This will encrypt all volumes for the EC2,  including the ROOT volume :)
+        **This will encrypt all volumes for the EC2,
+          including the ROOT volume!
 
-        **If an EC2 instance is in the running state, it will be STOPPED first,
-        before its volumes are encrypted
+        **If an EC2 instance is running, it will be STOPPED (to ensure disk integrity)
+          before its volumes are encrypted
 
-## Python version:  
-This is portable and tested to work using ANY major release of python, 
-                    including 2.7+ and 3.4+
+## Python versions:  
+This is portable and tested to work for python 2.7+ and 3.4+
 
 ## Requirements:
     Will need to ensure boto3 libraries have been installed as part of your Python libraries
@@ -24,7 +24,7 @@ This is portable and tested to work using ANY major release of python,
             -p:  User profile who is running the script (e.g.  -p test-account )
             -r:  the REGION (e.g., -r us-east-2) that is affected.  
                 Keep in mind KMS is REGION specific.  This is an anomaly of IAM 
-### Optional: 
+### Optional:
             -k:  the CMK (Master Key) under which the DEKs will be be used to encrypt the volume(s). 
                 You can specify the Alias of the Key or the actual Key ID.  Alias is better since it can point to a newer master key in case the old CMK is no longer valid or gets replaced with a newer CMK key ID. 
                 IF CMK is NOT Specified, then the default AWS EBS key will be used, which in this case is alias/aws/ebs
@@ -34,4 +34,10 @@ This is portable and tested to work using ANY major release of python,
                 NOTE:  If -i is not specified, then ALL EC2 instances in the region will be encrypted!  
                 That can take a long time depending on how many instances and how large the volumes are in the region!
 
-Use ebs-encrypt --help or -h   for usage            
+## Example:
+    python ebs-encrypt.py -p my-aws-test-account -r us-gov-west-1 -i i-0724310a96a022b53
+    OR
+    python ebs-encrypt.py --profile my-aws-test-account --region us-gov-west-1 --instance-ids i-0724310a96a022b53
+
+### Invocation Help:
+    python ebs-encrypt.py --help or -h
