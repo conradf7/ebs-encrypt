@@ -35,9 +35,13 @@ This is portable and tested to work for python 2.7+ and 3.4+
                 That can take a long time depending on how many instances and how large the volumes are in the region!
 
 ## Example:
-    python ebs-encrypt.py -p my-aws-test-account -r us-gov-west-1 -i i-0724310a96a022b53
+    python ebs-encrypt.py -p my-aws-test-account -r us-gov-west-1 -i -i i-0f084d152c27f9a5f i-021d3a27a71da28be
     OR
-    python ebs-encrypt.py --profile my-aws-test-account --region us-gov-west-1 --instance-ids i-0724310a96a022b53
+    python ebs-encrypt.py --profile my-aws-test-account --region us-gov-west-1 --instance-ids -i i-0f084d152c27f9a5f i-021d3a27a71da28be
+    
+    OR
+    python ebs-encrypt.py -p my-aws-test-account -r us-gov-west-1  
+      (for ALL EC2 instances' EBS volumes in the us-gov-west-1 region)
 
 ### Invocation Help:
     python ebs-encrypt.py --help or -h
