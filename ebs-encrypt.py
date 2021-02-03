@@ -32,6 +32,10 @@ Optional:
 
 Use ec2crypto --help or -h   for usage            
 """
+
+"""
+This script was forked and modified by David Chidester in February 2021 for use at Thermo Fisher Scientific
+"""
 #!/usr/bin/env python 
 
 import logging
@@ -39,6 +43,7 @@ import boto3
 import botocore
 import sys
 import argparse
+import json
 from botocore.exceptions import ClientError
 
 
