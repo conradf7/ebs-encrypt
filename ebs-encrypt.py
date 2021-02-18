@@ -35,6 +35,10 @@ Use ec2crypto --help or -h   for usage
 
 """
 This script was forked and modified by David Chidester in February 2021 for use at Thermo Fisher Scientific
+The following is a summery of changes made:
+    - Instance IDs are now reqired for the script to run
+    - The ability to encrypt all in an account volumes has been removed
+
 """
 #!/usr/bin/env python 
 
