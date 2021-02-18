@@ -1,7 +1,7 @@
 """
 Author: Conrad Fernandes
 
-Purpose: Encrypt all volumes attached to (any specified or all) EC2 instances 
+Purpose: Encrypt all volumes attached to (any specified) EC2 instances 
         in a specified AWS Region using a specified Master Key (can specify Alias or ID), 
         and run by a specified user (profile) 
 
@@ -18,7 +18,10 @@ PARAMETERS:
 Mandatory:
             -p:  User profile who is running the script (e.g.  -p conrad-test-account )
             -r:  the REGION (e.g., -r us-east-2) that is affected.  
-                Keep in mind KMS is REGION specific.  This is an anomaly of IAM 
+                Keep in mind KMS is REGION specific.  This is an anomaly of IAM
+            -i : EC2 instance-id's  to be encrypted 
+                (e.g. -i i-0f084d152c27f9a5f i-021d3a27a71da28be) 
+                for these 2 EC2 instance id's
 Optional: 
             -k:  the CMK (Master Key) under which the DEKs will be be used to encrypt the volume(s). 
                 You can specify the Alias of the Key or the actual Key ID.  Alias is always better, 
@@ -26,14 +29,11 @@ Optional:
                 goes south for whatever reason, and gets replaced with a newer CMK key ID. 
                 IF CMK is NOT Specified, then the default AWS EBS key will be used,
                 which in this case is alias/aws/ebs
-            -i : EC2 instance-id's  to be encrypted 
-                (e.g. -i i-0f084d152c27f9a5f i-021d3a27a71da28be) 
-                for these 2 EC2 instance id's
 
 Use ec2crypto --help or -h   for usage            
-"""
 
-"""
+-------------------------------------------------------------------------------------------------------------
+
 This script was forked and modified by David Chidester in February 2021 for use at Thermo Fisher Scientific
 The following is a summery of changes made:
     - Instance IDs are now reqired for the script to run
@@ -59,13 +59,13 @@ class EBSencrypt(object):
         """ Constructor
         profile and region are mandatory inputs
         Also create a logger hander        
-            and optionally the CMK and instance-id's to encrypt
-            If not provided, will encrypt ALL instances in the region, using the 
+            and optionally the CMK to encrypt
+            If not provided, will encrypt using the 
             DEFAULT (regional) AWS KMS master key
         """    
         assert (profile != None), "Error: -p profile, needs to be specified"
         assert (region != None), "Error: -r region, needs to be specified"
-        assert (instance_ids != None), "Error: -i instance_ids, needs to be specified"
+        assert (instance_ids != None), "Error: -i instance ID(s), needs to be specified"
         
         self.region = region 
 
