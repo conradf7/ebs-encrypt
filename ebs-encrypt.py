@@ -51,7 +51,7 @@ class EBSencrypt(object):
     """ Encrypt EBS volumes from EC2 instance(s) 
     """
 
-    def __init__(self, profile, region, cmk, instance_ids=None):
+    def __init__(self, profile, region, cmk, instance_ids):
         """ Constructor
         profile and region are mandatory inputs
         Also create a logger hander        
@@ -61,6 +61,7 @@ class EBSencrypt(object):
         """    
         assert (profile != None), "Error: -p profile, needs to be specified"
         assert (region != None), "Error: -r region, needs to be specified"
+        assert (instance_ids != None), "Error: -i instance_ids, needs to be specified"
         
         self.region = region 
 
@@ -101,8 +102,6 @@ class EBSencrypt(object):
 
                     inst = self.ec2_resource.Instance(id=i)
                     self.instances.append  (inst)
-            else:
-                self.instances = list(self.ec2_resource.instances.all())
 
             assert ( len(self.instances) != 0), "Error: No instances"
         except ClientError as e:
@@ -232,7 +231,6 @@ class EBSencrypt(object):
             self.waiters['instance_stopped'].wait (InstanceIds=[instance.id])
             self.logger.info('\t... Stopped')
 
-
     def encrypt_instance(self, inst):
         """ Encrypt the instance's volumes """
 
@@ -312,10 +310,10 @@ if __name__ == '__main__':
     #mandatory options
     parser.add_argument('-p', '--profile', help='AWS Profile', required=True)
     parser.add_argument('-r', '--region', help='AWS Region', required=True)
+    parser.add_argument('-i', '--instance_ids', nargs='+',
+                        help='Instance-IDs to encrypt', required=True)
     #optional options
     parser.add_argument('-k', '--key', help='Customer Master Key', required=False)
-    parser.add_argument('-i', '--instance_ids', nargs='+',
-                        help='Instance-IDs to encrypt', required=False)
     args = parser.parse_args()
 
     # Call the main function 
